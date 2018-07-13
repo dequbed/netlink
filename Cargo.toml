@@ -2,6 +2,7 @@
 
 members = [
     "netlink-socket",
+    "audit",
     "iproute2",
     "rtnetlink",
 ]

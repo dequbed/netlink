@@ -45,14 +45,14 @@ impl NetlinkFlags {
         self.0 & NLM_F_REQUEST == NLM_F_REQUEST
     }
 
-    /// Set the `NLM_F_MULTIPART` flag
+    /// Set the `NLM_F_MULTI` flag
     pub fn set_multipart(&mut self) -> &mut Self {
-        self.0 |= NLM_F_MULTIPART;
+        self.0 |= NLM_F_MULTI;
         self
     }
-    /// Check if the `NLM_F_MULTIPART` flag is set
+    /// Check if the `NLM_MULTIPART` flag is set
     pub fn has_multipart(self) -> bool {
-        self.0 & NLM_F_MULTIPART == NLM_F_MULTIPART
+        self.0 & NLM_F_MULTI == NLM_F_MULTI
     }
 
     /// Set the `NLM_F_ACK` flag
