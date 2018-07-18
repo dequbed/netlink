@@ -1,49 +1,36 @@
 [package]
-authors = ["Corentin Henry <corentinhenry@gmail.com>"]
 name = "rtnetlink"
-version = "0.0.3"
+version = "0.0.2"
+authors = ["Corentin Henry <corentinhenry@gmail.com>"]
 
 homepage = "https://github.com/little-dude/netlink"
 keywords = ["netlink", "ip", "linux"]
 license = "MIT"
 readme = "../README.md"
 repository = "https://github.com/little-dude/netlink"
-description = "rtnetlink messages (see `man 7 rtnetlink`)"
+description = "manipulate linux networking resources via netlink"
 
 [dependencies]
-byteorder = "1.2.3"
 bytes = "0.4.8"
-libc = "0.2.42"
+tokio-core = "0.1.17"
+futures = "0.1.22"
 log = "0.4.3"
-netlink-socket = { path = "../netlink-socket", version = "0.0" }
+lazy_static = "1.0.1"
+eui48 = "0.3.2"
+failure = "0.1.1"
+failure_derive = "0.1.1"
 
-[dependencies.futures]
-optional = true
-version = "0.1.22"
+[dependencies.netlink-packet]
+version = "0.0"
+default-features = false
+features = ["tokio_support", "rtnetlink"]
+path = "../netlink-packet"
 
-[dependencies.tokio-io]
-optional = true
-version = "0.1.7"
-
-[dependencies.tokio-reactor]
-optional = true
-version = "0.1.2"
+[dependencies.netlink-socket]
+version = "0.0"
+default-features = false
+features = ["tokio_support"]
+path = "../netlink-socket"
 
 [dev-dependencies]
-lazy_static = "1.0.1"
 env_logger = "0.5.10"
-
-[features]
-default = []
-tokio_support = [
-    "netlink-socket/tokio_support",
-    "futures",
-    "tokio-io",
-    "tokio-reactor"]
-
-[[example]]
-name = "dump_links"
-
-[[example]]
-name = "dump_links_tokio"
-required-features = ["tokio_support"]

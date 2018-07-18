@@ -1,0 +1,61 @@
+[package]
+authors = ["Corentin Henry <corentinhenry@gmail.com>"]
+name = "netlink-packet"
+version = "0.0.4"
+
+homepage = "https://github.com/little-dude/netlink"
+keywords = ["netlink", "linux"]
+license = "MIT"
+readme = "../README.md"
+repository = "https://github.com/little-dude/netlink"
+description = "netlink packet types"
+
+[dependencies]
+byteorder = "1.2.3"
+bytes = "0.4.8"
+libc = "0.2.42"
+log = "0.4.3"
+netlink-socket = { path = "../netlink-socket", version = "0.0" }
+
+[dependencies.futures]
+optional = true
+version = "0.1.22"
+
+[dependencies.tokio-io]
+optional = true
+version = "0.1.7"
+
+[dependencies.tokio-reactor]
+optional = true
+version = "0.1.2"
+
+[dependencies.bit_field]
+optional = true
+version = "0.9.0"
+
+[dev-dependencies]
+lazy_static = "1.0.1"
+env_logger = "0.5.10"
+
+[features]
+# By default this crate does not does anything useful. You should enable a
+# netlink protocol (either rtnetlink or audit), and optionally, tokio support.
+default = []
+# Adds support rtnetlink messages
+rtnetlink = []
+# Adds support audit messages
+audit = ["bit_field"]
+# Adds Tokio integration
+tokio_support = [
+    "netlink-socket/tokio_support",
+    "futures",
+    "tokio-io",
+    "tokio-reactor"]
+
+[[example]]
+name = "dump_links"
+required-features = ["rtnetlink"]
+
+[[example]]
+name = "dump_links_tokio"
+required-features = ["tokio_support", "rtnetlink"]
