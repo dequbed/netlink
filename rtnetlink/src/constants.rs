@@ -657,6 +657,50 @@ mod rtnl_route_nlas {
 
 pub use self::rtnl_route_nlas::*;
 
+mod rtnl_neighbour_nlas {
+    use bindgen_constants as constants;
+
+    pub const NDA_UNSPEC: u16 = constants::NDA_UNSPEC as u16;
+    pub const NDA_DST: u16 = constants::NDA_DST as u16;
+    pub const NDA_LLADDR: u16 = constants::NDA_LLADDR as u16;
+    pub const NDA_CACHEINFO: u16 = constants::NDA_CACHEINFO as u16;
+    pub const NDA_PROBES: u16 = constants::NDA_PROBES as u16;
+    pub const NDA_VLAN: u16 = constants::NDA_VLAN as u16;
+    pub const NDA_PORT: u16 = constants::NDA_PORT as u16;
+    pub const NDA_VNI: u16 = constants::NDA_VNI as u16;
+    pub const NDA_IFINDEX: u16 = constants::NDA_IFINDEX as u16;
+    pub const NDA_MASTER: u16 = constants::NDA_MASTER as u16;
+    pub const NDA_LINK_NETNSID: u16 = constants::NDA_LINK_NETNSID as u16;
+    pub const NDA_SRC_VNI: u16 = constants::NDA_SRC_VNI as u16;
+}
+pub use self::rtnl_neighbour_nlas::*;
+
+mod rtnl_neighbour_flags {
+    use bindgen_constants as constants;
+    pub const NTF_USE: u8 = constants::NTF_USE as u8;
+    pub const NTF_SELF: u8 = constants::NTF_SELF as u8;
+    pub const NTF_MASTER: u8 = constants::NTF_MASTER as u8;
+    pub const NTF_PROXY: u8 = constants::NTF_PROXY as u8;
+    pub const NTF_EXT_LEARNED: u8 = constants::NTF_EXT_LEARNED as u8;
+    pub const NTF_OFFLOADED: u8 = constants::NTF_OFFLOADED as u8;
+    pub const NTF_ROUTER: u8 = constants::NTF_ROUTER as u8;
+}
+pub use self::rtnl_neighbour_flags::*;
+
+mod rtnl_neighbour_states {
+    use bindgen_constants as constants;
+    pub const NUD_INCOMPLETE: u16 = constants::NUD_INCOMPLETE as u16;
+    pub const NUD_REACHABLE: u16 = constants::NUD_REACHABLE as u16;
+    pub const NUD_STALE: u16 = constants::NUD_STALE as u16;
+    pub const NUD_DELAY: u16 = constants::NUD_DELAY as u16;
+    pub const NUD_PROBE: u16 = constants::NUD_PROBE as u16;
+    pub const NUD_FAILED: u16 = constants::NUD_FAILED as u16;
+    pub const NUD_NOARP: u16 = constants::NUD_NOARP as u16;
+    pub const NUD_PERMANENT: u16 = constants::NUD_PERMANENT as u16;
+    pub const NUD_NONE: u16 = constants::NUD_NONE as u16;
+}
+pub use self::rtnl_neighbour_states::*;
+
 mod if_states {
 	pub const IF_OPER_UNKNOWN: u8 = 0;
 	pub const IF_OPER_NOTPRESENT: u8 = 1;

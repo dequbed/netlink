@@ -16,6 +16,9 @@ pub enum RtnlMessage {
     NewAddress(AddressMessage),
     DelAddress(AddressMessage),
     GetAddress(AddressMessage),
+    GetNeighbour(NeighbourMessage),
+    NewNeighbour(NeighbourMessage),
+    //SetNeighbourTable(NeighbourTableMessage),
     Other(Vec<u8>),
 }
 
@@ -107,4 +110,30 @@ impl RtnlMessage {
             false
         }
     }
+
+    pub fn is_get_neighbour(&self) -> bool {
+        if let RtnlMessage::GetNeighbour(_) = *self {
+            true
+        } else {
+            false
+        }
+    }
+
+    pub fn is_new_neighbour(&self) -> bool {
+        if let RtnlMessage::NewNeighbour(_) = *self {
+            true
+        } else {
+            false
+        }
+    }
+
+    /*
+     *pub fn is_set_neighbourtable(&self) -> bool {
+     *    if let RtnlMessage::SetNeighbourTable(_) = *self {
+     *        true
+     *    } else {
+     *        false
+     *    }
+     *}
+     */
 }

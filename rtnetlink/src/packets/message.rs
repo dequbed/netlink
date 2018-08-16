@@ -187,9 +187,9 @@ impl NetlinkMessage {
             // NewRoute(_) => RTM_NEWROUTE,
             // DelRoute(_) => RTM_DELROUTE,
             // GetRoute(_) => RTM_GETROUTE,
-            // NewNeighbour(_) => RTM_NEWNEIGH,
+            NewNeighbour(_) => RTM_NEWNEIGH,
             // DelNeighbour(_) => RTM_DELNEIGH,
-            // GetNeighbour(_) => RTM_GETNEIGH,
+            GetNeighbour(_) => RTM_GETNEIGH,
             // NewRule(_) => RTM_NEWRULE,
             // DelRule(_) => RTM_DELRULE,
             // GetRule(_) => RTM_GETRULE,
@@ -264,6 +264,16 @@ impl<'buffer, T: AsRef<[u8]> + 'buffer> Parseable<NetlinkMessage> for NetlinkBuf
                 }
             }
 
+            // Neighbour messages
+            RTM_GETNEIGH | RTM_NEWNEIGH => {
+                let msg: NeighbourMessage = NeighbourBuffer::new(&self.payload()).parse()?;
+                match header.message_type() {
+                    RTM_GETNEIGH => GetNeighbour(msg),
+                    RTM_NEWNEIGH => NewNeighbour(msg),
+                    _ => unimplemented!(),
+                }
+            }
+
             NLMSG_ERROR => {
                 let msg: ErrorMessage = ErrorBuffer::new(&self.payload()).parse()?;
                 if msg.code >= 0 {
@@ -307,7 +317,11 @@ impl Emitable for NetlinkMessage {
             | NewAddress(ref msg)
             | DelAddress(ref msg)
             | GetAddress(ref msg)
-            => msg.buffer_len()
+            => msg.buffer_len(),
+
+            | GetNeighbour(ref msg)
+            | NewNeighbour(ref msg)
+            => msg.buffer_len(),
         };
         self.header.buffer_len() + payload_len
     }
@@ -336,7 +350,11 @@ impl Emitable for NetlinkMessage {
             | NewAddress(ref msg)
             | DelAddress(ref msg)
             | GetAddress(ref msg)
-            => msg.emit(buffer)
+            => msg.emit(buffer),
+
+            | GetNeighbour(ref msg)
+            | NewNeighbour(ref msg)
+            => msg.emit(buffer),
         }
     }
 }
